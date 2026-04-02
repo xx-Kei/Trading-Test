@@ -54,6 +54,23 @@ output = output.rename(columns={
 output_sorted = output.sort_values(by="return", ascending=False)
 print(output_sorted)
    
+def generate_brief_report(metrics_df):
+    top_name = metrics_df.index[0]
+    bottom_name = metrics_df.index[-1]
+    
+    top_row = metrics_df.iloc[0]
+    bottom_row = metrics_df.iloc[-1]
+
+    report = (
+        f"Best Strategy: {top_name} \n"
+        f"Worst Strategy: {bottom_name}."
+    )
+    
+    return report
+
+report_text = generate_brief_report(output_sorted)
+print(report_text)
+
 for name, df in results.items():
     short, long = map(int, name.replace("MA", "").split("/"))
     
